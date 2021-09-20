@@ -3,7 +3,7 @@
 <h1>{{ $title}}</h1>
 @stop
 @section('content')
-<div class="box">
+  <div class="box">
 	@include('layouts.alerts')
 	<div class="box-header">
 		<a class="btn btn-sm btn-info" href="{{route('clientes')}}">
@@ -263,7 +263,7 @@
 				</div>
 			</form>
 		</div>
-	</div>
+	  </div>
 	@stop
 	@section('adminlte_js')
 	@stop

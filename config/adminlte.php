@@ -140,7 +140,7 @@ return [
         [
             'text'    => 'Fornecedores',
             'icon'    => 'users',
-            'url'     => '#',
+            'url'     => 'fornecedor',
         ],
         [
             'text'    => 'Compras',
@@ -152,12 +152,12 @@ return [
             'icon'    => 'money',
             'url'     => '#',
         ],
-        // 'CONFIGURAÇÕES',
-        // [
-        //     'text'    => 'Doc. Vendas',
-        //     'icon'    => 'clone',
-        //     'url'     => '#',
-        // ],
+//         'CONFIGURAÇÕES',
+//         [
+//             'text'    => 'Doc. Vendas',
+//             'icon'    => 'clone',
+//             'url'     => '#',
+//         ],
         // [
         //     'text'    => 'Doc. Recebimentos',
         //     'icon'    => 'clone',
@@ -207,6 +207,6 @@ return [
     */
 
     'plugins' => [
-        
+
     ],
 ];

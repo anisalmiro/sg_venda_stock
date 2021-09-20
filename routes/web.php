@@ -76,3 +76,16 @@ Route::group(['middleware' => ['auth']], function() {
 	# REQUISICAO AJAX PARA CARREGAR LISTA DE PRODUCTOS & SERVIÇOS
 	Route::get('/getproductoservico', 'StkController@getproductoservico')->name('getproductoservico');
 });
+
+    # Fornecedores
+    	Route::get('/fornecedor', 'FornecedorController@index')->name('fornecedor');
+    	Route::get('/fornecedor/add', 'FornecedorController@create')->name('fornecedor.create');
+    	Route::post('/fornecedor/store', 'FornecedorController@store')->name('fornecedor.store');
+    	Route::get('/fornecedor/show/{id}', 'FornecedorController@show')->name('fornecedor.show');
+        Route::get('/fornecedor/edit/{id}', 'FornecedorController@edit')->name('fornecedor.edit');
+        Route::put('/fornecedor/update/{id}', 'FornecedorController@update')->name('fornecedor.update');
+        Route::get('/fornecedor/delete/{id}', 'FornecedorController@delete')->name('fornecedor.delete');
+        Route::get('/fornecedor/destroy/{id}', 'FornecedorController@destroy')->name('fornecedor.destroy');
+
+# REQUISICAO AJAX PARA CARREGAR LISTA DE Fornecedores
+	Route::get('/getfornecedores', 'FornecedorController@getfornecedores')->name('getfornecedores');

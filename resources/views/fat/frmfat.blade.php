@@ -50,7 +50,7 @@
 						<div class="col-md-7">
 							<input type="text" name="fat_numerointerno" class="form-control input-sm" value="{{ $fat->fat_numerointerno ?? null}}" >
 						</div>
-					</div>	
+					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="form-group form-group-sm">
@@ -69,7 +69,9 @@
 								<div class="form-group form-group-sm">
 									<label for="fat_cliid" class="col-md-3 control-label">Nome do Cliente</label>
 									<div class="col-md-9">
+									<fieldset hidden></fieldset>
 										@if(isset($show))
+
 											<select name="fat_cliid" class="select2" style="width: 100%" disabled>
 										@else
 											<select name="fat_cliid" class="select2" style="width: 100%">
@@ -163,10 +165,10 @@
 					@if($tipofat->tipofat_id == 2)
 						<div class="row">
 							<div class="col-md-12">
-								<hr>							
+								<hr>
 								<div class="form-group">
 									<h4>Formas de Pagamento</h4>
-									<table id="formapag" class="table table-bordered">							
+									<table id="formapag" class="table table-bordered">
 										<thead>
 											<th style="width: 22%">Tipo de Pagamento</th>
 											<th style="width: 15%">Número</th>
@@ -199,7 +201,7 @@
 													</td>
 													<td>
 														<input type="text" name="tipopag_valor_l[]" readonly value="{{$t->formapag_valor}}" class="form-control" />
-													</td>													
+													</td>
 													<td>
 														@if(!isset($show))
 															<button class="btn btn-danger btn-sm" onclick="removeLinhaFormapag(this)" type="button" title="Remover Forma de Pagamento" value="{{$t->formapag_id}}"><i class="fa fa-trash"></i></button>
@@ -215,7 +217,7 @@
 											<i class="fa fa-plus-circle"></i>
 										</button>
 									@endif
-								</div>							
+								</div>
 							</div>
 						</div>
 					@endif
@@ -251,7 +253,7 @@
 										@endforeach
 									</select>
 								</div>
-							</div>							
+							</div>
 						</div>
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
@@ -300,9 +302,9 @@
 	function getPreco(){
 		var stkid = $('#stk_id').val();
 		var url   = "{{ route('gettabpreco', '_stkid_') }}".replace('_stkid_', stkid);
-		$.getJSON(url, function (dados){ 
-			if (dados != 1){ 
-				$.getJSON(url, function (dados){ 		
+		$.getJSON(url, function (dados){
+			if (dados != 1){
+				$.getJSON(url, function (dados){
 					$('#stk_preco').val(dados.tabpreco_preco);
 					if(dados.tabpreco_ivainc == 1){
 						document.getElementById("stk_ivaincluido").setAttribute("checked", "checked");
@@ -311,13 +313,13 @@
 			}else{
 				$('#stk_preco').val(0);
 			}
-        })	
+        })
 	}
 	// Preenche campo hidden de descrição do artigo
 	$('#stk_id').change(function(e){
 		var stkid = $('#stk_id').val();
 		var url   = "{{ route('getstkdetalhes', '_stkid_') }}".replace('_stkid_', stkid);
-		$.getJSON(url, function (dados){ 		
+		$.getJSON(url, function (dados){
 			$('#stk_descricao').val(dados.stk_descricao);
 		})
 		getPreco();
@@ -327,7 +329,7 @@
 	$('#tipopag_id').change(function(e){
 		var id = $('#tipopag_id').val();
 		var url   = "{{ route('gettipopag', '_id_') }}".replace('_id_', id);
-		$.getJSON(url, function (dados){ 		
+		$.getJSON(url, function (dados){
 			$('#tipopag_descricao').val(dados.tipopag_descricao);
 		})
 	});
@@ -336,7 +338,7 @@
 	$('#tipopag_bancoid').change(function(e){
 		var id = $('#tipopag_bancoid').val();
 		var url   = "{{ route('getbanco', '_id_') }}".replace('_id_', id);
-		$.getJSON(url, function (dados){ 		
+		$.getJSON(url, function (dados){
 			$('#tipopag_bancodescricao').val(dados.banco_descricao);
 		})
 	});
@@ -345,11 +347,11 @@
 	$('#tipopag_contatesouraid').change(function(e){
 		var id = $('#tipopag_contatesouraid').val();
 		var url   = "{{ route('getcontatesoura', '_id_') }}".replace('_id_', id);
-		$.getJSON(url, function (dados){ 		
+		$.getJSON(url, function (dados){
 			$('#tipopag_contatesouradescricao').val(dados.contatesoura_descricao);
 		})
 	});
-	
+
 	//GRID DE LINHAS DO DOCUMENTO
 	(function($) {
 		addLines = function() {
@@ -389,7 +391,7 @@
 
 		return false;
 		}
-	})(jQuery); 
+	})(jQuery);
 
 	(function($) {
 		removeLinha = function(item) {
@@ -399,11 +401,11 @@
 		var deleteds = ''
 		deleteds += '<input type="hidden" name="deleteds[]" readonly value="'+l_id+'" class="form-control" />';
 		$("#deleteds").append(deleteds);
-		tr.remove()      
+		tr.remove()
 		total()
 		return false
 		}
-	})(jQuery); 
+	})(jQuery);
 
 	//GRID DE LINHAS DO DOCUMENTO
 	(function($) {
@@ -436,7 +438,7 @@
 
 		return false;
 		}
-	})(jQuery); 
+	})(jQuery);
 
 	(function($) {
 		removeLinhaFormapag = function(item) {
@@ -446,11 +448,11 @@
 		var deleteds2 = ''
 		deleteds2 += '<input type="hidden" name="deleteds2[]" readonly value="'+l_id+'" class="form-control" />';
 		$("#deleteds").append(deleteds2);
-		tr.remove()      
+		tr.remove()
 		total()
 		return false
 		}
-	})(jQuery); 
+	})(jQuery);
 </script>
 
 @endsection
