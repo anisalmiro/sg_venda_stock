@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Yajra\Datatables\Datatables;
 use App\Models\Fnc;
+use Redirect;
 
 
 class FornecedorController extends Controller
@@ -48,6 +49,7 @@ class FornecedorController extends Controller
     		$nome    = Fnc::orderBy("nome")->get();
     		$morada  = Fnc::orderBy("morada")->get();
     		$telefone= Fnc::orderBy("telefone")->get();
+    		$telefone= Fnc::orderBy("celular")->get();
     		$email   = Fnc::orderBy("email")->get();
     		$nuit    = Fnc::orderBy("nuit")->get();
     		if($fnc == null)
@@ -66,25 +68,22 @@ class FornecedorController extends Controller
     	 */
     	public function store(Request $request)
     	{
-    		$data = $request->all();
-    		$data['idfnc'] = DB::select('SELECT UPPER(LEFT(uuid(), 15)) AS id')[0]->id;
-    		if(isset($data['nome']) && ($data['nome'] == 'on'))
-    			$data['nome'] = 1;
-    		else
-    			$data['nome'] = 0;
-    		if(isset($data['morada']) && ($data['morada'] == 'on'))
-    			$data['morada'] = 1;
-    		else
-    			$data['morada'] = 0;
-    		if(isset($data['telefone']) && ($data['telefone']=='on'))
-    			$data['telefone'] = 1;
-    		else
-    			$data['telefone'] = 0;
-    		$insert = fnc::create($data);
+
+    		$insert = Fnc::create([
+    		'idfnc'=>DB::select('SELECT UPPER(LEFT(uuid(), 15)) AS id')[0]->id,
+    		 'fnc_numero'   =>$request['fnc_numero'],
+    		 'nome'   =>$request['fnc_nome'],
+             'morada'   =>$request['fnc_morada'],
+             'telefone'   =>$request['fnc_telefone'],
+             'celular'   =>$request['fnc_celular'],
+             'email'   =>$request['fnc_email'],
+             'nuit'   =>$request['fnc_nuit'],
+             ]);
     		if($insert) {
-    			return redirect()->route('fornecedores')->with("success", "fornecedor Cadastrado Com Sucesso");
+    		    return redirect('/fornecedor')->with( 'success', 'Actualisado com sucesso' );
+
     		} else {
-    			return redirect()->back()->with("error", "Erro ao Gravar o fornecedor");
+    		return redirect('/fornecedor')->with( "error", "Erro ao Gravar o fornecedor" );
     		}
     	}
 
@@ -168,7 +167,7 @@ class FornecedorController extends Controller
     	{
     		$title   = "Apagar fornecedor";
     		$fnc      = fnc::where("idfnc", $id)->first();
-    		$fnc     = Fnc::orderBy("idfnc","desc")->first();
+    		$fnc     = Fnc::orderBy("idfnc")->first();
             $nome = Fnc::orderBy("nome")->get();
             $morada    = Fnc::orderBy("morada")->get();
             $telefone  = Fnc::orderBy("telefone")->get();
@@ -190,7 +189,7 @@ class FornecedorController extends Controller
     		$delete = fnc::where('idfnc', $id)->delete();
     		if($delete)
     			return redirect()
-    					->route('fornecedors')
+    					->route('fornecedor')
     					->with('success',"fornecedor Apagado com Sucesso!");
     		else
     			return redirect()
